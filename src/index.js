@@ -15,7 +15,7 @@ exports.hourHandler = async function (event, ctx) {
 exports.diffHandler = async function (event, ctx) {
     await log.execute(event, ctx)
 
-    const msg = `The difference between ${moment().format("hh:mm")} and ${moment(atob(event?.body?.time)).format("hh:mm")} is too boring to do right now :( \nsorry my dear user.`
+    const msg = `The difference between ${moment().format("hh:mm")} and the time you specified is too boring to do right now :( \nsorry my dear user.`
     console.log(msg)
     return {
         statusCode: 200,
