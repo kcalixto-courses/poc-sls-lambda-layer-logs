@@ -1,0 +1,35 @@
+service: poc-lambda-layer-logs
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: prd
+  region: sa-east-1
+
+layers:
+  log:
+    package:
+      artifact: layers/log.zip
+
+functions:
+  hour:
+    handler: src/index.hourHandler
+    layers:
+      - !Ref LogLambdaLayer
+    events:
+      - httpApi:
+          path: /hour
+          method: GET
+          cors: true
+
+  diff:
+    handler: src/index.diffHandler
+    layers:
+      - !Ref LogLambdaLayer
+    events:
+      - httpApi:
+          path: /diff
+          method: POST
+          cors: true
